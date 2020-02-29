@@ -3,7 +3,7 @@ import sys
 import socket
 
 
-def load_dict(filename):
+def load_rs_dict(filename):
     table = {}
     with open(filename, 'r') as file:
         for line in file:
@@ -15,7 +15,7 @@ def load_dict(filename):
     return table
 
 
-def get_connection(port):
+def get_client_connection(port):
     try:
         ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print "[S]: Server socket created"
@@ -32,17 +32,19 @@ def get_connection(port):
     return (ss, csock)
 
 
-dns_table = load_dict('PROJ1_DNSRS.txt')
+dns_table = load_rs_dict('PROJ1_DNSRS.txt')
 rs_port = sys.argv[1]
-ss, csock = get_connection(rs_port)
+rss, csock = get_client_connection(rs_port)
+
 while True:
-    hostname = csock.recv(256)
-    if(hostname == ''):
+    msg = csock.recv(256)
+    print msg
+    if(msg == ''):
         break
-    elif(hostname.lower() in dns_table):
-        entry = dns_table[hostname.lower()]
+    elif(msg.lower() in dns_table):
+        entry = dns_table[msg.lower()]
         csock.send(entry)
     else:
         csock.send(dns_table['NS'])
 
-print dns_table
+rss.close()
