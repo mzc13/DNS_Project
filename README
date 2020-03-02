@@ -1,0 +1,21 @@
+0. Muhmmad Choudhary, mzc13 | 
+
+1. Our client first connects to the root server and then sends a random
+string to get the hostname of the top level server. Then it connects to
+the top level server and starts sending queries line by line. If the
+root server sends back an NS response, the client queries the top level
+server and writes the response received to the output file.
+
+2. Everything in our code is working according to the instructions.
+
+3. The hardest part was probably designing the data structure required
+for the DNS tables. We started by splitting each line from the table
+entry files and then using the hostname to point to the IP and record.
+The problem with this approach was that we could not handle case
+insensitive lookups. The way we fixed this was by turning the hostname
+to a lowercase string and then having it map to the line from the table
+file in a dictionary; and we had a special 'NS' entry in the dictionary
+to handle cases where the entry was not in the root server's table.
+
+4. We learned how to use multiple sockets in a python project, how to
+detect when a socket closes, and the basics of how DNS queries work.

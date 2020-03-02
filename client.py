@@ -26,6 +26,7 @@ ts_name = rsock.recv(256).split()[0]
 tsock = get_server_connection(ts_name, ts_port)
 
 with open('PROJ1_HNS.txt', 'r') as inputFile:
+    # MAKE SURE TO SWITCH THIS OUT WITH PROPER OUTPUT FILE
     with open('TEST_RESOLVED.txt', 'w+') as outputFile:
         firstLine = True
         for line in inputFile:
