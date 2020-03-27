@@ -25,23 +25,21 @@ def get_client_connection(port):
     localhost_ip = (socket.gethostbyname(host))
     print "[S]: Server IP address is  " + str(localhost_ip)
     csock, addr = ss.accept()
-    print "[S]: Got a connection request from a client at" + str(addr)
+    print "[S]: Got a connection request from a client at " + str(addr)
     return (ss, csock)
 
 
-dns_table = load_ts_dict('PROJ1_DNSTS.txt')
+dns_table = load_ts_dict('PROJ2_DNSTS2.txt')
 ts_port = sys.argv[1]
-tss, csock = get_client_connection(ts_port)
+tss, lsock = get_client_connection(ts_port)
 
 while True:
-    msg = csock.recv(256)
-    print msg
+    msg = lsock.recv(256)
     if(msg == ''):
         break
     elif(msg.lower() in dns_table):
+        print msg
         entry = dns_table[msg.lower()]
-        csock.send(entry)
-    else:
-        csock.send(msg + ' - Error:HOST NOT FOUND')
+        lsock.send(entry)
 
 tss.close()
