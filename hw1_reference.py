@@ -2,7 +2,7 @@
 import threading
 import time
 import random
-import socket as mysoc
+import socket
 
 # server task
 
@@ -13,25 +13,26 @@ def stringToAscii(string):
         tempString += str(ord(char)) + '_'
     return tempString[0:-1]
 
+
 def server():
     try:
-        ss = mysoc.socket(mysoc.AF_INET, mysoc.SOCK_STREAM)
+        ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print("[S]: Server socket created")
-    except mysoc.error as err:
+    except socket.error as err:
         print('{} \n'.format("socket open error " + str(err)))
     server_binding = ('', 50007)
     ss.bind(server_binding)
     ss.listen(1)
-    host = mysoc.gethostname()
+    host = socket.gethostname()
     print("[S]: Server host name is: ", host)
-    localhost_ip = (mysoc.gethostbyname(host))
+    localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is  ", localhost_ip)
     addr = ss.accept()
     print("[S]: Got a connection request from a client at", addr)
     # send a intro  message to the client.
     # msg = "Welcome to CS 352"
     wordFromClient = ""
-    
+
     while True:
         wordFromClient = ss.recv(128)
         # wordFromClient.decode('utf-8')
@@ -53,14 +54,14 @@ def server():
 
 def client():
     try:
-        cs = mysoc.socket(mysoc.AF_INET, mysoc.SOCK_STREAM)
+        cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print("[C]: Client socket created")
-    except mysoc.error as err:
+    except socket.error as err:
         print('{} \n'.format("socket open error " + str(err)))
 
     # Define the port on which you want to connect to the server
     port = 50007
-    sa_sameas_myaddr = mysoc.gethostbyname(mysoc.gethostname())
+    sa_sameas_myaddr = socket.gethostbyname(socket.gethostname())
     # connect to the server on local machine
     server_binding = (sa_sameas_myaddr, port)
     cs.connect(server_binding)
