@@ -1,4 +1,4 @@
-0. Muhmmad Choudhary, mzc13 | 
+0. Muhmmad Choudhary, mzc13 | Syed Ateeb Jamal, saj148
 
 1. Our client first connects to the root server and then sends a random
 string to get the hostname of the top level server. Then it connects to
