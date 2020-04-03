@@ -22,7 +22,7 @@ lsock = get_server_connection(ls_name, ls_port)
 
 with open('PROJ2_HNS.txt', 'r') as inputFile:
     # MAKE SURE TO SWITCH THIS OUT WITH PROPER OUTPUT FILE
-    with open('TEST_RESOLVED.txt', 'w+') as outputFile:
+    with open('RESOLVED.txt', 'w+') as outputFile:
         firstLine = True
         for line in inputFile:
             lsock.send(line.strip())

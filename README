@@ -1,18 +1,20 @@
 1. Muhmmad Choudhary, mzc13 | Syed Ateeb Jamal, saj148
 
-2. When the LS received a request from the client it would send a 
+2. When the LS received a request from the client it would send a
 request to both TS servers. In our code we implemented a 6 second
-timeout using the Python select library which waited to see if the
-socket was able to form a connection. If a connection was found,
-we checked to see which socket formed the connection and received the
-response. We then appended the server name to the end of the response
-that LS sends to the client. The Python select library made it so that
-after a timeout, we saw that neither socket formed a connection and we
-sent a response back to the client accordingly.
+timeout using the Python select module which waited to see if the
+sockets received any data in their buffers within the time period. If no
+socket responded, the LS would send back an error to the client.
+Otherwise, we check which socket responded to the query and append that
+server's hostname to the end of the DNS record and send it back to the
+client.
 
 3. Everything in our code is working according to the instructions.
 
-4. The hardest part was probably ...
+4. The hardest part was figuring out exactly what select() does since
+all the documentation online just says that it is equivalent to the UNIX
+select() function without describing what that means. Eventually, after
+reading some code examples we figured out how to use it.
 
 5. We learned how to use a server as a relay point to help direct the
 flow of network traffic. We also learned how to use multiple sockets and
