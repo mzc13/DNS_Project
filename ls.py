@@ -6,9 +6,7 @@ import select
 
 def query_servers(hostname, sock1_tuple, sock2_tuple):
     s1_sock = sock1_tuple[0]
-    s1_name = sock1_tuple[1]
     s2_sock = sock2_tuple[0]
-    s2_name = sock2_tuple[1]
     s1_sock.send(hostname)
     s2_sock.send(hostname)
     (read_list, _, _) = select.select([s1_sock, s2_sock], [], [], 6)
@@ -17,10 +15,7 @@ def query_servers(hostname, sock1_tuple, sock2_tuple):
     else:
         sock = read_list.pop()
         msg = sock.recv(256)
-        if(sock == s1_sock):
-            return msg + ' ' + s1_name
-        else:
-            return msg + ' ' + s2_name
+        return msg
 
 
 def get_client_connection(port):
